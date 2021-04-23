@@ -1,3 +1,3 @@
 # EBCLinkedList
 
-A description of this package.
+A double linked list in Swift.
