@@ -7,7 +7,7 @@ final class EBCLinkedListTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct
         // results.
         
-        let ll = EBCLinkedList<Int>()
+        var ll = EBCLinkedList<Int>()
         
         ll.append(5)
         ll.append(6)
@@ -25,8 +25,28 @@ final class EBCLinkedListTests: XCTestCase {
         XCTAssertEqual(ll.removeLast(), nil)
         
     }
+    
+    func testIterator() {
+        
+        var ll = EBCLinkedList<Int>()
+        
+        ll.append(2)
+        ll.append(3)
+        ll.append(4)
+        ll.append(5)
+        
+        var index = 0
+        for i in ll {
+            XCTAssertEqual(i, index + 2)
+            index += 1
+        }
+        
+        XCTAssertEqual(ll.count, 4)
+        
+    }
 
     static var allTests = [
         ("testExample", testExample),
+        ("testIterator", testIterator),
     ]
 }

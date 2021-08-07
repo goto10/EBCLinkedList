@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import Combine
 
-public class EBCLinkedList<T> {
+struct EBCLinkedList<T> {
     private var head: Node<T>?
     private var tail: Node<T>?
     private var _count: UInt = 0
@@ -32,7 +33,7 @@ public class EBCLinkedList<T> {
     // This initializer intentionally left empty
     }
     
-    public func append(_ value: T) {
+    public mutating func append(_ value: T) {
         let newNode = Node(with: value)
         
         if let tailNode = tail {
@@ -47,13 +48,13 @@ public class EBCLinkedList<T> {
     }
     
     /// Remove all items from the list
-    public func removeAll() {
+    public mutating func removeAll() {
         head = nil
         tail = nil
         _count = 0
     }
     
-    private func remove(node: Node<T>) -> T {
+    private mutating func remove(node: Node<T>) -> T {
         let previousNode = node.previous
         let nextNode = node.next
         
@@ -74,11 +75,13 @@ public class EBCLinkedList<T> {
         
         _count -= 1
         
+        
+        
         return node.value
         
     }
     
-    public func removeLast() -> T? {
+    public mutating func removeLast() -> T? {
         if let tail = tail {
             let node = self.remove(node: tail)
             return node
@@ -87,7 +90,7 @@ public class EBCLinkedList<T> {
         }
     }
     
-    public func removeFirst() -> T? {
+    public mutating func removeFirst() -> T? {
         if let head = head {
             return self.remove(node: head)
         } else {
@@ -110,5 +113,14 @@ extension EBCLinkedList: CustomStringConvertible {
         
         return text + "]"
     }
+}
+
+extension EBCLinkedList: Sequence, IteratorProtocol {
+    public typealias Element = T
+
+    public mutating func next() -> T? {
+        return removeFirst()
+    }
+    
 }
 
