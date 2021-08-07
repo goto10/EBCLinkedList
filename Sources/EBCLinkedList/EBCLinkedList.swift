@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-struct EBCLinkedList<T> {
+public struct EBCLinkedList<T> {
     private var head: Node<T>?
     private var tail: Node<T>?
     private var _count: UInt = 0
